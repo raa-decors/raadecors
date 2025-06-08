@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+.FirstSection {
+    background-color: #750939;
+    padding: 20px;
+    height: 50vh;
+}
+
+.productName {
+    font-size: 100px;
+    /* Reduced for better responsiveness */
+    font-weight: 700;
+    color: aliceblue;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+}
