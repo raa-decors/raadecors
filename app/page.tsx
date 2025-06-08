@@ -5,6 +5,5 @@ import Main from "./componentss/Main";
 export default function Home() {
   return (<>
     <Main />
-    {/* <Sample /> */}
   </>);
 }
