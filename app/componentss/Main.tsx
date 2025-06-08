@@ -109,7 +109,7 @@ const RAADecorsLanding = () => {
         };
     }, []);
 
-    const nextSlide = (section) => {
+    const nextSlide = (section:string) => {
         const dataLength = section === 'services' ? services.length : works.length;
         setCurrentSlide(prev => ({
             ...prev,
