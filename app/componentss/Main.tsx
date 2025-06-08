@@ -2,8 +2,22 @@
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Mail, Phone, MapPin, Clock } from 'lucide-react';
 
+type SlideSection = 'services' | 'works';
+
+interface SlideState {
+    services: number;
+    works: number;
+}
+
+interface CarouselItem {
+    id: number;
+    title: string;
+    description: string;
+    image: string;
+}
+
 const RAADecorsLanding = () => {
-    const [currentSlide, setCurrentSlide] = useState({
+    const [currentSlide, setCurrentSlide] = useState<SlideState>({
         services: 0,
         works: 0
     });
@@ -11,11 +25,11 @@ const RAADecorsLanding = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState('');
 
-    const servicesRef = useRef(null);
-    const worksRef = useRef(null);
+    const servicesRef = useRef<HTMLDivElement>(null);
+    const worksRef = useRef<HTMLDivElement>(null);
 
     // Services data
-    const services = [
+    const services: CarouselItem[] = [
         {
             id: 1,
             title: "Complete Interior Design",
@@ -43,11 +57,10 @@ const RAADecorsLanding = () => {
             description: "Full-service interior design from concept to completion",
             image: "https://images.unsplash.com/photo-1571624436279-b272aff752b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         }
-        // ... rest of services data
     ];
 
     // Works data
-    const works = [
+    const works: CarouselItem[] = [
         {
             id: 1,
             title: "Complete Interior Design",
@@ -75,7 +88,6 @@ const RAADecorsLanding = () => {
             description: "Full-service interior design from concept to completion",
             image: "https://images.unsplash.com/photo-1571624436279-b272aff752b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         }
-        // ... rest of services data
     ];
 
     // Scroll effect
@@ -109,7 +121,7 @@ const RAADecorsLanding = () => {
         };
     }, []);
 
-    const nextSlide = (section:string) => {
+    const nextSlide = (section: SlideSection) => {
         const dataLength = section === 'services' ? services.length : works.length;
         setCurrentSlide(prev => ({
             ...prev,
@@ -117,7 +129,7 @@ const RAADecorsLanding = () => {
         }));
     };
 
-    const prevSlide = (section) => {
+    const prevSlide = (section: SlideSection) => {
         const dataLength = section === 'services' ? services.length : works.length;
         setCurrentSlide(prev => ({
             ...prev,
@@ -125,14 +137,14 @@ const RAADecorsLanding = () => {
         }));
     };
 
-    const goToSlide = (section, index) => {
+    const goToSlide = (section: SlideSection, index: number) => {
         setCurrentSlide(prev => ({
             ...prev,
             [section]: index
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
 
@@ -140,7 +152,7 @@ const RAADecorsLanding = () => {
         setTimeout(() => {
             setSubmitStatus('success');
             setIsSubmitting(false);
-            e.target.reset();
+            (e.target as HTMLFormElement).reset();
 
             setTimeout(() => {
                 setSubmitStatus('');
@@ -148,14 +160,20 @@ const RAADecorsLanding = () => {
         }, 1500);
     };
 
-    const scrollToSection = (sectionId) => {
+    const scrollToSection = (sectionId: string) => {
         document.getElementById(sectionId)?.scrollIntoView({
             behavior: 'smooth',
             block: 'start'
         });
     };
 
-    const CarouselComponent = ({ data, section, currentIndex }) => (
+    interface CarouselProps {
+        data: CarouselItem[];
+        section: SlideSection;
+        currentIndex: number;
+    }
+
+    const CarouselComponent: React.FC<CarouselProps> = ({ data, section, currentIndex }) => (
         <div className="relative overflow-hidden rounded-3xl shadow-2xl group">
             <div
                 className="flex transition-transform duration-500 ease-in-out"
@@ -198,8 +216,8 @@ const RAADecorsLanding = () => {
                         key={index}
                         onClick={() => goToSlide(section, index)}
                         className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                                ? 'bg-yellow-400 w-6'
-                                : 'bg-white/50 hover:bg-white/70'
+                            ? 'bg-yellow-400 w-6'
+                            : 'bg-white/50 hover:bg-white/70'
                             }`}
                     />
                 ))}
@@ -218,8 +236,8 @@ const RAADecorsLanding = () => {
 
             {/* Header */}
             <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled
-                    ? 'bg-[#700038]/95 backdrop-blur-lg shadow-lg'
-                    : 'bg-[#700038]/90'
+                ? 'bg-[#700038]/95 backdrop-blur-lg shadow-lg'
+                : 'bg-[#700038]/90'
                 }`}>
                 <div className="max-w-7xl mx-auto px-6 py-4">
                     <div className="flex items-center justify-between">
@@ -336,70 +354,70 @@ const RAADecorsLanding = () => {
 
                         {/* Contact Form */}
                         {/* <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-yellow-400 font-medium mb-2">Full Name</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-yellow-400 focus:outline-none focus:bg-white/15 transition-all duration-300"
-                    placeholder="Your full name"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-yellow-400 font-medium mb-2">Email</label>
-                  <input
-                    type="email"
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-yellow-400 focus:outline-none focus:bg-white/15 transition-all duration-300"
-                    placeholder="your.email@example.com"
-                    required
-                  />
-                </div>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-yellow-400 font-medium mb-2">Phone</label>
-                  <input
-                    type="tel"
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-yellow-400 focus:outline-none focus:bg-white/15 transition-all duration-300"
-                    placeholder="+1 (555) 123-4567"
-                  />
-                </div>
-                <div>
-                  <label className="block text-yellow-400 font-medium mb-2">Project Type</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-yellow-400 focus:outline-none focus:bg-white/15 transition-all duration-300"
-                    placeholder="Residential, Commercial..."
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-yellow-400 font-medium mb-2">Project Details</label>
-                <textarea
-                  rows={4}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-yellow-400 focus:outline-none focus:bg-white/15 transition-all duration-300 resize-none"
-                  placeholder="Tell us about your project vision"
-                  required
-                />
-              </div>
-              
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-[#700038] px-6 py-4 rounded-lg text-lg font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
-              
-              {submitStatus === 'success' && (
-                <div className="text-center text-green-400 font-medium">
-                  Thank you! Your message has been sent successfully.
-                </div>
-              )}
-            </form> */}
+                            <div className="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-yellow-400 font-medium mb-2">Full Name</label>
+                                    <input
+                                        type="text"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-yellow-400 focus:outline-none focus:bg-white/15 transition-all duration-300"
+                                        placeholder="Your full name"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-yellow-400 font-medium mb-2">Email</label>
+                                    <input
+                                        type="email"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-yellow-400 focus:outline-none focus:bg-white/15 transition-all duration-300"
+                                        placeholder="your.email@example.com"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-yellow-400 font-medium mb-2">Phone</label>
+                                    <input
+                                        type="tel"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-yellow-400 focus:outline-none focus:bg-white/15 transition-all duration-300"
+                                        placeholder="+1 (555) 123-4567"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-yellow-400 font-medium mb-2">Project Type</label>
+                                    <input
+                                        type="text"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-yellow-400 focus:outline-none focus:bg-white/15 transition-all duration-300"
+                                        placeholder="Residential, Commercial..."
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label className="block text-yellow-400 font-medium mb-2">Project Details</label>
+                                <textarea
+                                    rows={4}
+                                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-yellow-400 focus:outline-none focus:bg-white/15 transition-all duration-300 resize-none"
+                                    placeholder="Tell us about your project vision"
+                                    required
+                                />
+                            </div>
+                            
+                            <button
+                                type="submit"
+                                className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-[#700038] px-6 py-4 rounded-lg text-lg font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300"
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? 'Sending...' : 'Send Message'}
+                            </button>
+                            
+                            {submitStatus === 'success' && (
+                                <div className="text-center text-green-400 font-medium">
+                                    Thank you! Your message has been sent successfully.
+                                </div>
+                            )}
+                        </form> */}
                     </div>
                 </div>
             </section>
