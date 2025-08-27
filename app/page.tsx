@@ -2,7 +2,7 @@
 export const metadata = {
   title: "RAA Decors",
   icons: {
-    icon: "/images/raa-logo.png", // public/images/raa-logo.png
+    icon: "/images/favicon.png", // public/images/raa-logo.png
   },
 };
 
