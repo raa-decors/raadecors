@@ -242,14 +242,30 @@ const RAADecorsLanding = () => {
                 <div className="max-w-7xl mx-auto px-6 py-4">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-gradient-to-br from-white to-gray-200 rounded-xl flex items-center justify-center text-[#700038] font-bold text-xl shadow-lg hover:scale-105 transition-transform duration-300">
+                            {/* <div className="w-12 h-12 bg-gradient-to-br from-white to-gray-200 rounded-xl flex items-center justify-center text-[#700038] font-bold text-xl shadow-lg hover:scale-105 transition-transform duration-300">
                                 R
-                            </div>
-                            <h1 className="text-2xl font-bold tracking-wider" style={{ fontFamily: 'Anutrati, sans-serif' }}>
+                            </div> */}
+                            <img
+                                src="/images/raa-logo.png"
+                                alt="RAA Decors Logo"
+                                className="w-15 h-15 pb-4 "
+                            />
+
+
+                            <h1 className="text-2xl font-bold tracking-wider">
+                                <img
+                                    src="/images/raa-letters.png"
+                                    alt="RAA Decors Logo"
+                                    className="h-12 w-auto object-contain"
+                                />
+                            </h1>
+
+
+                            {/* <h1 className="text-2xl font-bold tracking-wider" style={{ fontFamily: 'Anutrati, sans-serif' }}>
                                 <span className="bg-gradient-to-r from-white via-yellow-200 to-yellow-400 bg-clip-text text-transparent">
                                     RAA Decors
                                 </span>
-                            </h1>
+                            </h1> */}
                         </div>
                         <nav className="hidden md:flex gap-8">
                             {[
@@ -278,10 +294,11 @@ const RAADecorsLanding = () => {
             >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#700038]/50 via-[#4a0025]/70 to-[#2d0015]/90" />
                 <div className="relative z-10 max-w-4xl mx-auto">
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-yellow-200 to-yellow-400 bg-clip-text text-transparent animate-pulse">
-                        Transform Your Space
+                    <h1 className="text-2xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-yellow-200 to-yellow-400 bg-clip-text text-transparent animate-pulse">
+                        START YOUR JOURNEY WITH US
+                        {/* Transform Your Space */}
                     </h1>
-                    <p className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed">
+                    <p className="text-xl md:text-1xl mb-8 opacity-90 leading-relaxed">
                         Premium interior design solutions that reflect your unique style and elevate your living experience.
                     </p>
                     <button
@@ -339,7 +356,7 @@ const RAADecorsLanding = () => {
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <Phone className="text-yellow-400 flex-shrink-0" size={20} />
-                                    <span>+91 8940943348 | 9994648092</span>
+                                    <span>+91 9994648092 | 8098452008</span>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <Mail className="text-yellow-400 flex-shrink-0" size={20} />
@@ -347,7 +364,7 @@ const RAADecorsLanding = () => {
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <Clock className="text-yellow-400 flex-shrink-0" size={20} />
-                                    <span>Mon-Fri 9:00 AM - 6:00 PM</span>
+                                    <span>Monday - Saturday (9 am to 10 pm)</span>
                                 </div>
                             </div>
                         </div>
